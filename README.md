@@ -34,8 +34,14 @@ Un bot de Telegram (después WhatsApp) al que se le pide en lenguaje natural:
 - *"Armame el legajo de septiembre"* → recibe un ZIP con lo que hay, y la lista de lo que falta.
 - *"¿Qué falta de octubre?"* → la lista de pendientes, con quién tiene que resolver cada uno.
 
-La contadora sólo descarga de ARCA, renombra con una convención (`2026-06_F931_DDJJ.pdf`) y lo
-suelta en una carpeta. El catálogo se arma solo.
+**El objetivo es que nadie tenga que entrar a ARCA**: que el sistema traiga solo lo que ARCA
+publica, por sus servicios oficiales, a medida que se pueda. La constancia de inscripción ya
+tiene un webservice identificado; para las declaraciones juradas y el F.931 se está
+investigando la vía oficial. Lo que **no** se va a hacer es guardar la clave fiscal de la
+empresa en un servidor para simular a una persona navegando el portal.
+
+Mientras tanto, la carga es mínima: la contadora descarga, renombra con una convención
+(`2026-06_F931_DDJJ.pdf`) y lo suelta en una carpeta. El catálogo se arma solo.
 
 ## Arquitectura
 
@@ -123,7 +129,7 @@ arreglo. Dos ejemplos de la fase 0:
 | 2 | Carga de documentos mandándolos al bot | |
 | 3 | Estado del legajo y recordatorios mensuales | |
 | 5 | Acceso de terceros (operadoras) con permisos por documento | |
-| 6 | Constancia de ARCA automática por webservice | |
+| 6 | Documentos de ARCA automáticos por sus servicios oficiales: primero la constancia de inscripción, después lo que ARCA permita | |
 | 8 | Canal de WhatsApp | |
 
 ## Stack y costos
