@@ -1,0 +1,61 @@
+{
+  "name": "Bot - Hola (fase 0)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "53dbeb88-5717-4cd9-bef4-453050ac2fa8",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Hola {{ $('Telegram Trigger').item.json.message.from.first_name }} 👋\nSoy el bot de documentos de la empresa, todavía en construcción.\n\nTu user_id de Telegram es: {{ $('Telegram Trigger').item.json.message.from.id }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "bd1890df-9563-4458-be04-83a4a4501a35",
+      "name": "Responder hola",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Responder hola",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responder hola": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodeGroups": []
+}

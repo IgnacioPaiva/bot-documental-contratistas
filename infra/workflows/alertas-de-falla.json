@@ -1,0 +1,52 @@
+{
+  "name": "Alertas de falla (Error Workflow)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "5e04498e-24aa-4f2f-9126-8e044d1ed014",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "<TU_USER_ID_DE_TELEGRAM>",
+        "text": "=🚨 <b>Falla en producción</b>\n\n<b>Workflow:</b> {{ ($json.workflow?.name ?? '').toString().replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;') }}\n<b>Nodo:</b> {{ ($json.execution?.lastNodeExecuted ?? 'trigger' ?? '').toString().replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;') }}\n<b>Error:</b> {{ ($json.execution?.error?.message ?? $json.trigger?.error?.message ?? '').toString().replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').slice(0, 600) }}\n<b>Ejecución:</b> {{ $json.execution?.id ?? '—' }} ({{ $json.execution?.mode ?? '—' }})\n<b>Cuándo:</b> {{ $now.setZone('America/Argentina/Buenos_Aires').toFormat('dd/MM/yyyy HH:mm:ss') }}\n\n{{ $json.execution?.url ? '<a href=\"' + $json.execution.url + '\">Abrir la ejecución</a>' : '' }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_web_page_preview": true,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "42346c3b-8712-4838-951a-5acad8284c17",
+      "name": "Avisar al administrador",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Avisar al administrador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodeGroups": []
+}

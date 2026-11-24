@@ -1,0 +1,6 @@
+[Unit]
+Description=Alerta por Telegram: falló %i
+
+[Service]
+Type=oneshot
+ExecStart=/opt/n8n/backup/alerta-telegram.sh %i
